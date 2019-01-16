@@ -5,10 +5,10 @@ CXX=`${R_HOME}/bin/R.exe CMD config CXX`
 JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
-# itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-# itktag=22ef020347e60f2b42648083ccebfadbf780f823
-itkgit=https://github.com/muschellij2/ITK.git
-itktag=186799e02a565e36b4e091202f89927ba42b34e9 # blowekamp line search improvements
+itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
+itktag=786a1d59852ff40df453788c744a87b5c7027ddb
+#itkgit=https://github.com/muschellij2/ITK.git
+#itktag=186799e02a565e36b4e091202f89927ba42b34e9 # blowekamp line search improvements
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`
@@ -54,7 +54,7 @@ fi
 echo ${cmaker}
 
 ${cmaker} \
-    -G "Visual Studio 15 2017" -A x64 \
+    -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG -D_FILE_OFFSET_BITS=64 "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
@@ -66,7 +66,6 @@ ${cmaker} \
     -DCMAKE_INSTALL_PREFIX:PATH="${R_PACKAGE_DIR}"/libs/  \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
-    -DITKV3_COMPATIBILITY:BOOL=ON \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \
